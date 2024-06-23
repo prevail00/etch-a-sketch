@@ -1,0 +1,13 @@
+body {
+    margin: 0px;
+}
+
+
+.row {
+    display: flex;
+}
+
+.cell {
+    flex-shrink: 0;
+    background-color: blue;
+}

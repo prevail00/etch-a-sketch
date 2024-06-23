@@ -1,2 +1,2 @@
 # etch-a-sketch
-Etch-a-Sketch JavaScript prectice project
+Etch-a-Sketch JavaScript practice project

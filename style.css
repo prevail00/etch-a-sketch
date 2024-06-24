@@ -9,5 +9,4 @@ body {
 
 .cell {
     flex-shrink: 0;
-    background-color: blue;
 }

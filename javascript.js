@@ -1,36 +1,56 @@
 const maxGridSize = 100;
-let size = 0;
-
-while (size <= 0 || size > maxGridSize) {
-    size = prompt("Set the resolution");
-}
-
+const setupButton = document.querySelector("#btn-setup");
+const buttonHeight = setupButton.offsetHeight;
+const maxHeight = window.innerHeight - buttonHeight;
 const body = document.querySelector("body");
-const maxHeight = window.innerHeight;
 const container = document.querySelector("#container");
 
-container.setAttribute("style", "display: flex; flex-direction: column;")
+setupButton.addEventListener("click", () => {
+    createNewCanvas(getCanvasSize());
+});
 
-for (let i = 0; i < size; i++) {
-    const row = document.createElement("div");
-    container.appendChild(row);
-    row.setAttribute("class", "row");
-    for (let j = 0; j < size; j++) {
-        const cell = document.createElement("div");
-        row.appendChild(cell);
-        cell.setAttribute("class", "cell");
-        cell.setAttribute("style", `height: ${maxHeight / size}px; width: ${maxHeight / size}px;`);
+createNewCanvas(16);
+
+
+function getCanvasSize() {
+    let size = 0;
+    while (size <= 0 || size > maxGridSize || isNaN(size)) {
+        size = prompt("Set the resolution");
     }
+    return size;
 }
 
-//cells is a node list. Collects all the cells.
-const cells = document.querySelectorAll(".cell");
+function deleteAllCells() {
+    while (container.firstElementChild) {
+        container.removeChild(container.firstElementChild);
+      }
+}
 
-cells.forEach((cell) => {
-    // and for each one we add a 'click' listener
-    cell.addEventListener("mouseover", function (e) {
-      e.target.style.background = "black";
-        //cell.setAttribute("style", "background-color: black;");
+function createNewCanvas(size) {
+    if (size <= 0 ||size > maxGridSize || isNaN(size)) {
+        alert("Invalid canvas size");
+        return;
+    }
+
+    deleteAllCells();
+
+    for (let i = 0; i < size; i++) {
+        const row = document.createElement("div");
+        container.appendChild(row);
+        row.setAttribute("class", "row");
+        for (let j = 0; j < size; j++) {
+            const cell = document.createElement("div");
+            row.appendChild(cell);
+            cell.setAttribute("class", "cell");
+            cell.setAttribute("style", `height: ${maxHeight / size}px; width: ${maxHeight / size}px;`);
+        }
+    }
+
+    const cells = document.querySelectorAll(".cell");
+
+    cells.forEach((cell) => {
+        cell.addEventListener("mouseover", function (e) {
+        e.target.style.background = "black";
+        });
     });
-  });
-
+}
